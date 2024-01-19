@@ -1,20 +1,32 @@
 ﻿
+using PolicyAssignment.CustomAttributes;
+
 namespace PolicyAssignment.Models.ResponseModels
 {
     public class UserDetailsResponse
     {
+        [MapHtmlData("Name")]
         public string Name { get; set; }
-        public string PolicyNumber { get; set; }
-        public int Age { get; set; }
-        public int Salary { get; set; }
-        public string Occupation { get; set; }
-        public DateTime PolicyExpiryDate { get; set; }
-        public string ProductCode { get; set; }
-        public string EmailAddress { get; set; }
 
-        public static implicit operator Task<object>(UserDetailsResponse v)
-        {
-            throw new NotImplementedException();
-        }
+        [MapHtmlData("PolicyNumber")]
+        public string PolicyNumber { get; set; }
+
+        [MapHtmlData("Age")]
+        public int Age { get; set; }
+
+        [MapHtmlData("Salary")]
+        public int Salary { get; set; }
+
+        [MapHtmlData("Occupation")]
+        public string Occupation { get; set; }
+
+        [MapHtmlData("PolicyExpiryDate")]
+        public DateTime PolicyExpiryDate { get; set; }
+
+        [MapHtmlData("ProductCode")]
+        public string ProductCode { get; set; }
+
+        //email is not needed as of now
+        //public string EmailAddress { get; set; }
     }
 }

@@ -1,9 +1,11 @@
-﻿using PolicyAssignment.DAL.Entities;
+﻿using PolicyAssignment.CustomAttributes;
+using PolicyAssignment.DAL.Entities;
 using PolicyAssignment.DAL.Repositories.Implemented;
 using PolicyAssignment.DAL.Repositories.Interface;
 using PolicyAssignment.Models.RequestModels;
 using PolicyAssignment.Models.ResponseModels;
 using PolicyAssignment.Services.Interface;
+using System.Reflection;
 
 namespace PolicyAssignment.Services.Implemented
 {
@@ -24,17 +26,25 @@ namespace PolicyAssignment.Services.Implemented
             UserDetailsResponse userDetails = await _userService.GetUserDetailsAsync(request);
             string template = await _dtService.GetDocumentTemplateContentAsync(1);
 
-            string mappedHtmlTemplate = template
-            .Replace("{{Name}}", userDetails.Name)
-            .Replace("{{PolicyNumber}}", userDetails.PolicyNumber)
-            .Replace("{{Age}}", userDetails.Age.ToString())
-            .Replace("{{Salary}}", userDetails.Salary.ToString())
-            .Replace("{{Occupation}}", userDetails.Occupation)
-            .Replace("{{ProductCode}}", userDetails.ProductCode)
-            .Replace("{{PolicyExpiryDate}}", userDetails.PolicyExpiryDate.ToString("yyyy-MM-dd"));
-
+            string mappedHtmlTemplate = PopulateTemplate(userDetails, template);
+            
             return mappedHtmlTemplate;
+        }
 
+        public string PopulateTemplate<T>(T data, string htmlTemplate)
+        {
+            foreach (var property in typeof(T).GetProperties())
+            {
+                var attribute = property.GetCustomAttribute<MapHtmlDataAttribute>();
+                if (attribute != null)
+                {
+                    var placeholder = $"{{{{{attribute.FieldName}}}}}";
+                    var value = property.GetValue(data)?.ToString() ?? string.Empty;
+                    htmlTemplate = htmlTemplate.Replace(placeholder, value);
+                }
+            }
+
+            return htmlTemplate;
         }
     }
 }
