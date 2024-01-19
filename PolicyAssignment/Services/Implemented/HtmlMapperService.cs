@@ -1,4 +1,5 @@
 ﻿using PolicyAssignment.CustomAttributes;
+using PolicyAssignment.Extensions;
 using PolicyAssignment.Models.RequestModels;
 using PolicyAssignment.Models.ResponseModels;
 using PolicyAssignment.Services.Interface;
@@ -22,28 +23,8 @@ namespace PolicyAssignment.Services.Implemented
         {
             UserDetailsResponse userDetails = await _userService.GetUserDetailsAsync(request);
             string template = await _dtService.GetDocumentTemplateContentAsync(1);
-
-            string mappedHtmlTemplate = PopulateTemplate(userDetails, template);
-            
-            return mappedHtmlTemplate;
-        }
-
-        public string PopulateTemplate<T>(T data, string htmlTemplate)
-        {
-            //Retrieves all the properties of T
-            foreach (var property in typeof(T).GetProperties())
-            {
-                //Retrieves all Custom Attribute, which is MapHtmlDataAttribute here
-                var attribute = property.GetCustomAttribute<MapHtmlDataAttribute>();
-                if (attribute != null)
-                {
-                    //Retrieves the value of the property from object using reflection 
-                    var value = property.GetValue(data)?.ToString() ?? string.Empty;
-                    //replaces the Fieldname  with value which is the data coming from repository
-                    htmlTemplate = htmlTemplate.Replace(attribute.FieldName, value);
-                }
-            }
-            return htmlTemplate;
+            //Calling Extension Method
+            return template.PopulateTemplate(userDetails);
         }
     }
 }
