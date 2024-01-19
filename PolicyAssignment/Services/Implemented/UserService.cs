@@ -18,12 +18,20 @@ namespace PolicyAssignment.Services.Implemented
             this._mapper = mapper;
         }
 
-        public async Task<UserDetailsResponse> GetUserDetailsAsync(PolicyRequestModel request)
+        public async Task<string> CreateUserAsync(UserCreationModel userRequest)
+        {
+            User user = _mapper.Map<User>(userRequest);
+            User created_user = await _userRepository.CreateAsync(user);
+            return created_user.Name;
+        }
+
+        public async Task<UserDetailsResponseModel> GetUserDetailsAsync(PolicyRequestModel request)
         {
             User user = await _userRepository.GetUserAsync(request);
-            UserDetailsResponse response = _mapper.Map<UserDetailsResponse>(user);
+            UserDetailsResponseModel response = _mapper.Map<UserDetailsResponseModel>(user);
             return response;
         }
+
     }
 
 

@@ -3,7 +3,7 @@ using PolicyAssignment.CustomAttributes;
 
 namespace PolicyAssignment.Models.ResponseModels
 {
-    public class UserDetailsResponse
+    public class UserDetailsResponseModel
     {
         //template var == attribute value
         [MapHtmlData($"{{{{Name}}}}")]

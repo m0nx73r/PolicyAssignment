@@ -14,10 +14,12 @@ namespace PolicyAssignment.Controllers
     public class UserController : ControllerBase
     {   
         private readonly IHtmlMapperService _htmlMapper;
+        private readonly IUserService _userService;
 
-        public UserController(IHtmlMapperService htmlMapper)
+        public UserController(IHtmlMapperService htmlMapper, IUserService userService)
         {
             this._htmlMapper = htmlMapper;
+            this._userService = userService;
         }
         [HttpPost("[action]")]
         public async Task<IActionResult> GetUserDetails([FromBody]PolicyRequestModel policyRequest)
@@ -25,6 +27,20 @@ namespace PolicyAssignment.Controllers
             //calling UserService and DocumentTemplateService Internally
             string mappedHtmlTemplate = await _htmlMapper.GetMappedHtmlAsync(policyRequest);
             return Ok(mappedHtmlTemplate);
+        }
+
+        [HttpPost("[action]")]
+
+        public async Task<IActionResult> CreateUser([FromBody] UserCreationModel userRequest)
+        {
+            string response =  await _userService.CreateUserAsync(userRequest);
+
+            UserResponseModel responseModel = new UserResponseModel();
+
+            responseModel.name = response;
+            responseModel.status = "200";
+
+            return Ok(responseModel);
         }
     }
 }

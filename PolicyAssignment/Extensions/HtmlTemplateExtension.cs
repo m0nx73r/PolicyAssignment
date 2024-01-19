@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace PolicyAssignment.Extensions
 {
-    public static class PopulateTemplateExtension
+    public static class HtmlTemplateExtension
     {
         //Injecting Extension Method in string class, so it can be directly used in service
         public static string PopulateTemplate<T>(this string htmlTemplate, T data)

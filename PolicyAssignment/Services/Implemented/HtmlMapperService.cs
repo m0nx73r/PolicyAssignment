@@ -21,7 +21,7 @@ namespace PolicyAssignment.Services.Implemented
 
         public async Task<string> GetMappedHtmlAsync(PolicyRequestModel request)
         {
-            UserDetailsResponse userDetails = await _userService.GetUserDetailsAsync(request);
+            UserDetailsResponseModel userDetails = await _userService.GetUserDetailsAsync(request);
             string template = await _dtService.GetDocumentTemplateContentAsync(1);
             //Calling Extension Method
             return template.PopulateTemplate(userDetails);
