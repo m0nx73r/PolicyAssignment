@@ -31,7 +31,7 @@ namespace PolicyAssignment.Controllers
 
         [HttpPost("[action]")]
 
-        public async Task<IActionResult> CreateUser([FromBody] UserCreationModel userRequest)
+        public async Task<IActionResult> CreateUserAsync([FromBody] UserCreationModel userRequest)
         {
             string response =  await _userService.CreateUserAsync(userRequest);
 
