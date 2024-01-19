@@ -20,7 +20,7 @@ namespace PolicyAssignment.Controllers
             this._htmlMapper = htmlMapper;
         }
         [HttpPost("[action]")]
-        public async Task<IActionResult> GetUserDetails([FromBody]PolicyRequest policyRequest)
+        public async Task<IActionResult> GetUserDetails([FromBody]PolicyRequestModel policyRequest)
         {
             //calling UserService and DocumentTemplateService Internally
             string mappedHtmlTemplate = await _htmlMapper.GetMappedHtmlAsync(policyRequest);

@@ -1,7 +1,4 @@
 ﻿using PolicyAssignment.CustomAttributes;
-using PolicyAssignment.DAL.Entities;
-using PolicyAssignment.DAL.Repositories.Implemented;
-using PolicyAssignment.DAL.Repositories.Interface;
 using PolicyAssignment.Models.RequestModels;
 using PolicyAssignment.Models.ResponseModels;
 using PolicyAssignment.Services.Interface;
@@ -21,7 +18,7 @@ namespace PolicyAssignment.Services.Implemented
             this._dtService = dtService;
         }
 
-        public async Task<string> GetMappedHtmlAsync(PolicyRequest request)
+        public async Task<string> GetMappedHtmlAsync(PolicyRequestModel request)
         {
             UserDetailsResponse userDetails = await _userService.GetUserDetailsAsync(request);
             string template = await _dtService.GetDocumentTemplateContentAsync(1);
@@ -33,17 +30,19 @@ namespace PolicyAssignment.Services.Implemented
 
         public string PopulateTemplate<T>(T data, string htmlTemplate)
         {
+            //Retrieves all the properties of T
             foreach (var property in typeof(T).GetProperties())
             {
+                //Retrieves all Custom Attribute, which is MapHtmlDataAttribute here
                 var attribute = property.GetCustomAttribute<MapHtmlDataAttribute>();
                 if (attribute != null)
                 {
-                    var placeholder = $"{{{{{attribute.FieldName}}}}}";
+                    //Retrieves the value of the property from object using reflection 
                     var value = property.GetValue(data)?.ToString() ?? string.Empty;
-                    htmlTemplate = htmlTemplate.Replace(placeholder, value);
+                    //replaces the Fieldname  with value which is the data coming from repository
+                    htmlTemplate = htmlTemplate.Replace(attribute.FieldName, value);
                 }
             }
-
             return htmlTemplate;
         }
     }

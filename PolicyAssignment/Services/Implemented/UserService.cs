@@ -18,9 +18,9 @@ namespace PolicyAssignment.Services.Implemented
             this._mapper = mapper;
         }
 
-        public async Task<UserDetailsResponse> GetUserDetailsAsync(PolicyRequest request)
+        public async Task<UserDetailsResponse> GetUserDetailsAsync(PolicyRequestModel request)
         {
-            User user = await _userRepository.GetUser(request);
+            User user = await _userRepository.GetUserAsync(request);
             UserDetailsResponse response = _mapper.Map<UserDetailsResponse>(user);
             return response;
         }
