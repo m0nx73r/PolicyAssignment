@@ -4,6 +4,6 @@ namespace PolicyAssignment.DAL.Repositories.Interface
 {
     public interface IDocumentTemplateRepository
     {
-        Task<DocumentTemplates> GetDocument(int id);
+        Task<DocumentTemplate> GetDocument(int id);
     }
 }

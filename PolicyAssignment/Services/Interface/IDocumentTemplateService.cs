@@ -2,6 +2,6 @@
 {
     public interface IDocumentTemplateService
     {
-        public Task<String> GetDocumentTemplateContentAsync(int templateId);
+        public Task<string> GetDocumentTemplateContentAsync(int templateId);
     }
 }

@@ -15,14 +15,16 @@ namespace PolicyAssignment.Controllers
     {   
         private readonly IHtmlMapperService _htmlMapper;
         private readonly IUserService _userService;
+        private readonly IHandlebarService _handlebarService;
 
-        public UserController(IHtmlMapperService htmlMapper, IUserService userService)
+        public UserController(IHtmlMapperService htmlMapper, IUserService userService, IHandlebarService handlebarService)
         {
             this._htmlMapper = htmlMapper;
             this._userService = userService;
+            this._handlebarService = handlebarService;
         }
         [HttpPost("[action]")]
-        public async Task<IActionResult> GetUserDetails([FromBody]PolicyRequestModel policyRequest)
+        public async Task<IActionResult> GetUserDetails([FromBody]UserDetailsRequestModel policyRequest)
         {
             //calling UserService and DocumentTemplateService Internally
             string mappedHtmlTemplate = await _htmlMapper.GetMappedHtmlAsync(policyRequest);
@@ -30,17 +32,23 @@ namespace PolicyAssignment.Controllers
         }
 
         [HttpPost("[action]")]
-
         public async Task<IActionResult> CreateUserAsync([FromBody] UserCreationModel userRequest)
         {
             string response =  await _userService.CreateUserAsync(userRequest);
 
             UserResponseModel responseModel = new UserResponseModel();
 
-            responseModel.name = response;
-            responseModel.status = "200";
+            responseModel.Name = response;
+            responseModel.Status = "200";
 
             return Ok(responseModel);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetUsers()
+        {
+            string htmlContent = await _handlebarService.getHtmlContent();
+            return Ok(htmlContent);
         }
     }
 }

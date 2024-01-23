@@ -11,20 +11,18 @@ namespace PolicyAssignment.Services.Implemented
     {
 
         private readonly IDocumentTemplateService _dtService;
-        private readonly IUserService _userService;
 
-        public HtmlMapperService(IUserService userService, IDocumentTemplateService dtService)
+        public HtmlMapperService(IDocumentTemplateService dtService)
         {
-            this._userService = userService;
+
             this._dtService = dtService;
         }
 
-        public async Task<string> GetMappedHtmlAsync(PolicyRequestModel request)
+        public async Task<string> GetMappedHtmlAsync(UserDetailsRequestModel data)
         {
-            UserDetailsResponseModel userDetails = await _userService.GetUserDetailsAsync(request);
             string template = await _dtService.GetDocumentTemplateContentAsync(1);
             //Calling Extension Method
-            return template.PopulateTemplate(userDetails);
+            return template.PopulateTemplateUsingReflection(data);
         }
     }
 }

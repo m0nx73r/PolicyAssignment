@@ -6,7 +6,6 @@ namespace PolicyAssignment.Services.Implemented
 {
     public class DocumentTemplateService : IDocumentTemplateService
     {
-
         private readonly IDocumentTemplateRepository _repository;
         public DocumentTemplateService(IDocumentTemplateRepository repository) { 
             this._repository = repository;
@@ -14,8 +13,7 @@ namespace PolicyAssignment.Services.Implemented
 
         public async Task<string> GetDocumentTemplateContentAsync(int templateId)
         {
-            DocumentTemplates template = await _repository.GetDocument(templateId);
-
+            DocumentTemplate template = await _repository.GetDocument(templateId);
             return template.Content;
         }
     }

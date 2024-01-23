@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PolicyAssignment.DAL.DbContexts;
+using PolicyAssignment.DAL.Entities;
 using PolicyAssignment.DAL.Repositories.Implemented;
 using PolicyAssignment.DAL.Repositories.Interface;
 using PolicyAssignment.MappingProfiles;
@@ -25,11 +26,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 //Service Registration
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IDocumentTemplateService, DocumentTemplateService>();
-builder.Services.AddScoped<IHtmlMapperService, HtmlMapperService>();
-builder.Services.AddTransient<IUserRepository, UserRepository>();
-builder.Services.AddTransient<IDocumentTemplateRepository, DocumentTemplateRepository>();
+
+builder.Services.AddScoped<IDocumentTemplateRepository, DocumentTemplateRepository>();
+builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddTransient<IHtmlMapperService, HtmlMapperService>();
+builder.Services.AddTransient<IHandlebarService, HandlebarService>();
+builder.Services.AddTransient<IHtmlToPDFService, HtmlToPDFService>();
+builder.Services.AddTransient<IHtmlMapperServiceV2, HtmlMapperServiceV2>();
+builder.Services.AddTransient<IDocumentCreationService, DocumentCreationService>();
+builder.Services.AddTransient<IDocumentTemplateService, DocumentTemplateService>();
+builder.Services.AddTransient<IUserService, UserService>();
+
 
 var app = builder.Build();
 

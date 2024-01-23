@@ -6,6 +6,8 @@ namespace PolicyAssignment.DAL.Repositories.Interface
     public interface IUserRepository
     {
         Task<User> CreateAsync(User user);
-        Task<User> GetUserAsync(PolicyRequestModel request);
+        Task<User> GetUserAsync(UserDetailsRequestModel request);
+
+        IEnumerable<User> GetUsers();
     }
 }

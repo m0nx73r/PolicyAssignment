@@ -11,6 +11,7 @@ namespace PolicyAssignment.MappingProfiles
         public AutoMapperProfile() {
             CreateMap<User, UserDetailsResponseModel>();
             CreateMap<UserCreationModel, User>();
+            CreateMap<UserDetailsRequestModel, Document>();
         }
     }
 }
