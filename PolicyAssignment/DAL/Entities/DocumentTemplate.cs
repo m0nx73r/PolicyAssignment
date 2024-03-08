@@ -1,6 +1,6 @@
 ﻿namespace PolicyAssignment.DAL.Entities
 {
-    public class DocumentTemplates
+    public class DocumentTemplate
     {
         public int Id { get; set; }
         public string DocumentCode { get; set; }

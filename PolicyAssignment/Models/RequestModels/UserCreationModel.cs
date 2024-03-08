@@ -1,7 +1,6 @@
-﻿
-namespace PolicyAssignment.Models.ResponseModels
+﻿namespace PolicyAssignment.Models.RequestModels
 {
-    public class UserDetailsResponse
+    public class UserCreationModel
     {
         public string Name { get; set; }
         public string PolicyNumber { get; set; }
@@ -11,10 +10,5 @@ namespace PolicyAssignment.Models.ResponseModels
         public DateTime PolicyExpiryDate { get; set; }
         public string ProductCode { get; set; }
         public string EmailAddress { get; set; }
-
-        public static implicit operator Task<object>(UserDetailsResponse v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

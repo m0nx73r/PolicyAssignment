@@ -19,10 +19,18 @@ namespace PolicyAssignment.DAL.Repositories.Implemented
             return user;
         }
 
-        public async Task<User> GetUser(PolicyRequest request)
+        public async Task<User> GetUserAsync(UserDetailsRequestModel request)
         {
             return await _dbContext.Users.FindAsync(request.PolicyNumber);
-
         }
+
+        public IEnumerable<User> GetUsers()
+        {
+            using(ApplicationDbContext dbContext = _dbContext)
+            {
+                return dbContext.Set<User>();
+            }
+        }
+
     }
 }

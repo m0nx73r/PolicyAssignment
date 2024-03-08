@@ -1,6 +1,6 @@
 ﻿namespace PolicyAssignment.Models.RequestModels
 {
-    public class PolicyRequest
+    public class UserDetailsRequestModel
     {
         public string PolicyNumber { get; set; }
         public string ProductCode { get; set; }

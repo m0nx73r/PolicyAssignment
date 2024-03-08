@@ -4,6 +4,7 @@ namespace PolicyAssignment.Services.Interface
 {
     public interface IHtmlMapperService
     {
-        public Task<String> GetMappedHtmlAsync(PolicyRequest request);
+        public Task<string> GetMappedHtmlAsync(UserDetailsRequestModel request);
+
     }
 }

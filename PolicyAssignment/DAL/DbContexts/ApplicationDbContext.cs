@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PolicyAssignment.DAL.Entities;
+using PolicyAssignment.DAL.Repositories.Implemented;
 
 namespace PolicyAssignment.DAL.DbContexts
 {
@@ -11,7 +12,8 @@ namespace PolicyAssignment.DAL.DbContexts
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<DocumentTemplates> DocumentTemplates { get; set; }
+        public DbSet<DocumentTemplate> DocumentTemplates { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Document> Documents { get; set; }
     }
 }

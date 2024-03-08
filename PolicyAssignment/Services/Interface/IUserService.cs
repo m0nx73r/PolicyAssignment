@@ -6,6 +6,8 @@ namespace PolicyAssignment.Services.Interface
 {
     public interface IUserService
     {
-        public Task<UserDetailsResponse> GetUserDetailsAsync(PolicyRequest request);
+        public Task<UserDetailsResponseModel> GetUserDetailsAsync(UserDetailsRequestModel policyRequest);
+        public Task<string> CreateUserAsync(UserCreationModel userRequest);
+        public Task<string> HtmlToPDF(UserDetailsRequestModel userRequest);
     }
 }

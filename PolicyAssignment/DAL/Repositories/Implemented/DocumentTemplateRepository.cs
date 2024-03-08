@@ -13,9 +13,9 @@ namespace PolicyAssignment.DAL.Repositories.Implemented
         {
             this._dbContext = dbContext;
         }
-        public async Task<DocumentTemplates> GetDocument(int id)
+        public async Task<DocumentTemplate> GetDocument(int id)
         {
-            DocumentTemplates template = await _dbContext.DocumentTemplates.FindAsync(id);
+            DocumentTemplate template = await _dbContext.DocumentTemplates.FindAsync(id);
             return template;
         }
     }
